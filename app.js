@@ -15,6 +15,14 @@ function onReady(){
     //Creates an input for list item
     let checkbox = document.createElement("input");
 
+    //makes Delete button
+    let deleteButton = document.createElement("button");
+    deleteButton.addEventListener("click", event => {
+      toDoList.removeChild(newLi);
+    })
+
+    deleteButton.textContent = "X";
+
     //makes input checkbox type
     checkbox.type = "checkbox";
 
@@ -24,15 +32,17 @@ function onReady(){
     //attaches checkbox to list item
     newLi.appendChild(checkbox);
 
+    newLi.appendChild(deleteButton);
+
     //Attaches li to todo toDoList
     toDoList.appendChild(newLi);
 
     //Creates empty input for next todo item
     newToDoText.value = "";
+
   });
-
-
 }
+
 
 window.onload = function(){
   onReady();
