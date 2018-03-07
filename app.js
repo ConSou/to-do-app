@@ -1,4 +1,6 @@
 function onReady(){
+
+  let idVar = 0;
   //Creates empty Array for to-dos
   let toDos = [];
 
@@ -11,8 +13,10 @@ function onReady(){
     if(!newToDoText.value) { return; }
     toDos.push({
       title: newToDoText.value,
-      complete: false
+      complete: false,
+      id: idVar
     });
+    idVar++
     console.log(toDos);
     renderTheUI();
   }
@@ -29,6 +33,22 @@ function onReady(){
       const checkbox = document.createElement('input');
       checkbox.type = "checkbox";
 
+      //*** Event handler for checked checkbox
+      checkbox.addEventListener('click', event => {
+        toDos[0].complete = true;
+        console.log("toDos.complete");
+      });
+
+      const deleteBut = document.createElement('input');
+      deleteBut.type = "button";
+      deleteBut.value = "X";
+
+      //Event Listener for delete button
+      deleteBut.addEventListener('click', event => {
+        deleteToDo(toDo.id);
+        renderTheUI();
+      });
+
       const title = document.createElement('span');
       title.textContent = toDo.title;
 
@@ -36,6 +56,7 @@ function onReady(){
 
       toDoList.appendChild(newLi);
       newLi.appendChild(checkbox);
+      newLi.appendChild(deleteBut);
     });
   }
 
@@ -45,6 +66,13 @@ function onReady(){
     createNewToDo();
     newToDoText.value = '';
   });
+
+
+  //This will delete to-do
+  function deleteToDo(id) {
+    toDos = toDos.filter(item => item.id !== id);
+  }
+
 
   //This will render inteface
   renderTheUI();
