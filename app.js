@@ -1,37 +1,53 @@
 function onReady(){
-  const addToDoForm = document.getElementById("addToDoForm");
-  const newToDoText = document.getElementById("newToDoText");
-  const toDoList = document.getElementById("toDoList");
+  //Creates empty Array for to-dos
+  let toDos = [];
 
-  addToDoForm.addEventListener("submit", event => {
+  const addToDoForm = document.getElementById('addToDoForm');
+  const newToDoText = document.getElementById('newToDoText');
+  const toDoList = document.getElementById('toDoList');
+
+  // This function will push user input to the toDos array
+  function createNewToDo() {
+    if(!newToDoText.value) { return; }
+    toDos.push({
+      title: newToDoText.value,
+      complete: false
+    });
+    console.log(toDos);
+    renderTheUI();
+  }
+
+  // This function will take current state of Arry and render the UI
+  function renderTheUI() {
+    const toDoList = document.getElementById('toDoList');
+
+    toDoList.textContent = '';
+
+    toDos.forEach(function(toDo){
+      const newLi = document.createElement('li');
+
+      const checkbox = document.createElement('input');
+      checkbox.type = "checkbox";
+
+      const title = document.createElement('span');
+      title.textContent = toDo.title;
+
+      newLi.textContent = toDo.title;
+
+      toDoList.appendChild(newLi);
+      newLi.appendChild(checkbox);
+    });
+  }
+
+  //Event Listener for submit click
+  addToDoForm.addEventListener('submit', event => {
     event.preventDefault();
-
-    //Get text
-    let title = newToDoText.value;
-
-    //Create list item with text
-    let newLi = document.createElement("li");
-
-    //Creates an input for list item
-    let checkbox = document.createElement("input");
-
-    //makes input checkbox type
-    checkbox.type = "checkbox";
-
-    //makes text title of list item
-    newLi.textContent = title;
-
-    //attaches checkbox to list item
-    newLi.appendChild(checkbox);
-
-    //Attaches li to todo toDoList
-    toDoList.appendChild(newLi);
-
-    //Creates empty input for next todo item
-    newToDoText.value = "";
+    createNewToDo();
+    newToDoText.value = '';
   });
 
-
+  //This will render inteface
+  renderTheUI();
 }
 
 window.onload = function(){
