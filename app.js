@@ -3,6 +3,7 @@ function onReady(){
   let idVar = 0;
   //Creates empty Array for to-dos
   let toDos = [];
+  var activeToDo = {};
 
   const addToDoForm = document.getElementById('addToDoForm');
   const newToDoText = document.getElementById('newToDoText');
@@ -35,8 +36,15 @@ function onReady(){
 
       //*** Event handler for checked checkbox
       checkbox.addEventListener('click', event => {
-        toDos[0].complete = true;
-        console.log("toDos.complete");
+        activeToDo = toDos.filter(item => item.id);
+
+        if(checkbox.value === "on"){
+          activeToDo.complete = true;
+        }else{
+          activeToDo.complete = false;
+        }
+        console.log(activeToDo);
+        console.log(toDos.complete);
       });
 
       const deleteBut = document.createElement('input');
