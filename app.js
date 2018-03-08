@@ -39,12 +39,11 @@ function onReady(){
         activeToDo = toDos.filter(item => item.id);
 
         if(checkbox.value === "on"){
-          activeToDo.complete = true;
+          toDos[0].complete = true;
         }else{
-          activeToDo.complete = false;
+          toDos[0].complete = false;
         }
-        console.log(activeToDo);
-        console.log(toDos.complete);
+        console.log(toDos);
       });
 
       const deleteBut = document.createElement('input');
