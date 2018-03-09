@@ -3,7 +3,6 @@ function onReady(){
   let idVar = 0;
   //Creates empty Array for to-dos
   let toDos = [];
-  var activeToDo = {};
 
   const addToDoForm = document.getElementById('addToDoForm');
   const newToDoText = document.getElementById('newToDoText');
@@ -31,19 +30,16 @@ function onReady(){
     toDos.forEach(function(toDo){
       const newLi = document.createElement('li');
 
-      const checkbox = document.createElement('input');
+      let checkbox = document.createElement('input');
       checkbox.type = "checkbox";
 
       //*** Event handler for checked checkbox
       checkbox.addEventListener('click', event => {
-        activeToDo = toDos.filter(item => item.id);
+        toDo.complete = checkbox.checked;
+        localStoreUp();
 
-        if(checkbox.value === "on"){
-          toDos[0].complete = true;
-        }else{
-          toDos[0].complete = false;
-        }
         console.log(toDos);
+
       });
 
       const deleteBut = document.createElement('input');
@@ -65,6 +61,8 @@ function onReady(){
       newLi.appendChild(checkbox);
       newLi.appendChild(deleteBut);
     });
+    localStorage.getItem("list");
+    localStoreUp();
   }
 
   //Event Listener for submit click
@@ -78,6 +76,12 @@ function onReady(){
   //This will delete to-do
   function deleteToDo(id) {
     toDos = toDos.filter(item => item.id !== id);
+  }
+
+  //Local Storage upload
+  function localStoreUp(){
+    let convertToString = JSON.stringify(toDos);
+    localStorage.setItem("list", convertToString);
   }
 
 
